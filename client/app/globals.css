@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-main: #ffffff;
+    --bg-[#F2F0F1]: #f2f0f1;
+    --bg-surface: #ffffff;
+    --border-light: #e5e7eb;
+    --text-primary: #000000;
+    --text-secondary: #555555;
+    --text-muted: #888888;
+  }
+
+  html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  canvas {
+    touch-action: pan-y !important;
+  }
+
+  /* Smooth Transitions Across Whole Site */
+  button, a, input, select {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #000000;
+  }
+}
+
+/* Glassmorphism card utilities for SHOP.CO Theme */
+.glass-panel {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Gradient & Typography Accents */
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #000000 0%, #1e293b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Global Hover Effects & Animations */
+.product-card-hover {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.25s ease;
+}
+
+.product-card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.08);
+  border-color: #000000;
+}
+
+.btn-hover-magnetic:hover {
+  transform: scale(1.03);
+}
+
+.btn-hover-magnetic:active {
+  transform: scale(0.97);
+}
+
+.img-zoom-hover {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .img-zoom-hover {
+  transform: scale(1.08);
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.03); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+/* Hide Next.js Dev Toast Indicator Overlay Badge & N Button */
+next-route-announcer,
+[data-nextjs-toast],
+[data-nextjs-dialog-overlay],
+[data-nextjs-toast-errors-parent],
+[data-nextjs-dev-overlay],
+nextjs-portal,
+div[class*="nextjs-toast"],
+div[class*="nextjs-portal"],
+button[aria-label*="Next.js"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
