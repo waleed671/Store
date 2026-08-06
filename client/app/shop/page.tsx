@@ -1,11 +1,9 @@
-'use client';
-
 import React, { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import ProductCard from '../../components/product/ProductCard';
 import api from '../../lib/api';
 import { Search, SlidersHorizontal, ChevronRight, Check } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'react-router-dom';
 
 const SHOP_WATCHES = [
   {

@@ -1,24 +1,10 @@
-'use client';
-
 import React, { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { 
-  X, 
-  ShoppingBag, 
-  Trash2, 
-  Plus, 
-  Minus, 
-  Tag, 
-  ArrowRight, 
-  Truck,
-  CheckCircle2 
-} from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { Link, useNavigate } from 'react-router-dom';
+import { X, ShoppingBag, Trash2, Plus, Minus, Tag, ArrowRight, Truck, CheckCircle2 } from 'lucide-react';
 import { useCartStore } from '../../store/useCartStore';
 
 export default function CartDrawer() {
-  const router = useRouter();
+  const navigate = useNavigate();
   const { 
     items, 
     isOpen, 
@@ -197,7 +183,7 @@ export default function CartDrawer() {
 
               {/* SHOP.CO Checkout Button */}
               <button
-                onClick={() => { closeCart(); router.push('/checkout'); }}
+                onClick={() => { closeCart(); navigate('/checkout'); }}
                 className="w-full py-4 bg-black text-white font-bold text-xs uppercase tracking-wider rounded-full hover:bg-slate-800 transition-all shadow-xl flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Go to Checkout</span>

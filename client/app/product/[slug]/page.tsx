@@ -1,9 +1,7 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
-import { useParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { 
   ShoppingBag, 
   Heart, 
@@ -19,16 +17,8 @@ import {
 import { useCartStore } from '../../../store/useCartStore';
 import { useWishlistStore } from '../../../store/useWishlistStore';
 import api from '../../../lib/api';
-import dynamic from 'next/dynamic';
 
-const Watch3DCanvas = dynamic(() => import('../../../components/hero/Watch3DCanvas'), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-[400px] flex items-center justify-center text-black text-xs font-bold uppercase tracking-widest animate-pulse">
-      Loading 3D Watch Model...
-    </div>
-  ),
-});
+const Watch3DCanvas = lazy(() => import('../../../components/hero/Watch3DCanvas'));
 
 const MOCK_DETAIL = {
   _id: 'lunarix-one-flagship',

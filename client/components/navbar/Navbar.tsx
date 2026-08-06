@@ -1,8 +1,5 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { 
   ShoppingBag, 
   Heart, 
@@ -22,8 +19,9 @@ import { useWishlistStore } from '../../store/useWishlistStore';
 import { useAuthStore } from '../../store/useAuthStore';
 
 export default function Navbar() {
-  const router = useRouter();
-  const pathname = usePathname();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const pathname = location.pathname;
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -45,18 +43,12 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    router.prefetch('/shop');
-    router.prefetch('/checkout');
-    router.prefetch('/account');
-    router.prefetch('/auth/login');
-    router.prefetch('/auth/register');
-  }, [router]);
+
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      router.push(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
+      navigate(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
       setSearchOpen(false);
       setSearchQuery('');
     }
@@ -99,7 +91,7 @@ export default function Navbar() {
       >
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-6">
           {/* SHOP.CO Bold Black Logo */}
-          <Link href={isAdminPage ? '/admin/dashboard' : '/'} className="flex items-center gap-2 group shrink-0">
+          <Link to={isAdminPage ? '/admin/dashboard' : '/'} className="flex items-center gap-2 group shrink-0">
             <span className="font-black text-2xl tracking-tighter text-black uppercase flex items-center gap-0.5">
               CHRONEX<span className="text-black">.CO</span>
             </span>
@@ -114,28 +106,25 @@ export default function Navbar() {
           {!isAdminPage && (
             <nav className="hidden lg:flex items-center gap-6 shrink-0">
               <Link
-                href="/shop"
-                onMouseEnter={() => router.prefetch('/shop')}
+                to="/shop"
                 className="text-sm font-semibold text-slate-800 hover:text-black transition-colors flex items-center gap-1 uppercase"
               >
                 Shop <ChevronDown className="w-3.5 h-3.5" />
               </Link>
               <Link
-                href="/shop?sort=discount"
-                onMouseEnter={() => router.prefetch('/shop?sort=discount')}
+                to="/shop?sort=discount"
                 className="text-sm font-semibold text-slate-800 hover:text-black transition-colors uppercase"
               >
                 On Sale
               </Link>
               <Link
-                href="/shop?sort=newest"
-                onMouseEnter={() => router.prefetch('/shop?sort=newest')}
+                to="/shop?sort=newest"
                 className="text-sm font-semibold text-slate-800 hover:text-black transition-colors uppercase"
               >
                 New Arrivals
               </Link>
               <Link
-                href="/#brands"
+                to="/#brands"
                 className="text-sm font-semibold text-slate-800 hover:text-black transition-colors uppercase"
               >
                 Brands
@@ -162,7 +151,7 @@ export default function Navbar() {
             {/* View Storefront button for Admin */}
             {isAdminPage && (
               <Link
-                href="/shop"
+                to="/shop"
                 target="_blank"
                 className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-300 hover:text-white transition-all"
               >
@@ -184,7 +173,7 @@ export default function Navbar() {
 
                 {/* Wishlist Button */}
                 <Link
-                  href="/wishlist"
+                  to="/wishlist"
                   className="p-2 text-slate-800 hover:text-red-500 transition-all relative"
                   aria-label="Wishlist"
                 >
@@ -229,7 +218,7 @@ export default function Navbar() {
                 </button>
               ) : (
                 <Link
-                  href="/auth/login"
+                  to="/auth/login"
                   className="hidden sm:flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-black hover:bg-slate-800 transition-all shadow-md"
                 >
                   <User className="w-3.5 h-3.5 text-white" />
@@ -255,7 +244,7 @@ export default function Navbar() {
 
                   {user.role === 'admin' && (
                     <Link
-                      href="/admin/dashboard"
+                      to="/admin/dashboard"
                       onClick={() => setUserDropdownOpen(false)}
                       className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-black hover:bg-[#F8FAFC] transition-colors"
                     >
@@ -265,7 +254,7 @@ export default function Navbar() {
                   )}
 
                   <Link
-                    href="/account"
+                    to="/account"
                     onClick={() => setUserDropdownOpen(false)}
                     className="flex items-center gap-2 px-4 py-2 text-xs text-slate-700 hover:bg-[#F8FAFC] font-semibold transition-colors"
                   >
@@ -277,7 +266,7 @@ export default function Navbar() {
                     onClick={() => {
                       logout();
                       setUserDropdownOpen(false);
-                      router.push('/');
+                      navigate('/');
                     }}
                     className="w-full flex items-center gap-2 px-4 py-2 text-xs text-red-600 font-bold hover:bg-red-50 transition-colors text-left"
                   >
@@ -328,7 +317,7 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <Link
                 key={link.label}
-                href={link.href}
+                to={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className="block text-sm font-bold text-black hover:text-slate-600 py-2.5 border-b border-slate-100 uppercase tracking-wider"
               >
@@ -337,7 +326,7 @@ export default function Navbar() {
             ))}
             {!user ? (
               <Link
-                href="/auth/login"
+                to="/auth/login"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block w-full text-center py-3 bg-black text-white text-xs font-bold uppercase rounded-full shadow-lg mt-4"
               >
@@ -345,7 +334,7 @@ export default function Navbar() {
               </Link>
             ) : (
               <Link
-                href="/account"
+                to="/account"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block w-full text-center py-3 bg-black text-white text-xs font-bold uppercase rounded-full shadow-lg mt-4"
               >

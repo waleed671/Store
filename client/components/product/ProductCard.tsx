@@ -1,7 +1,5 @@
-'use client';
-
 import React, { useState, useRef } from 'react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { Heart, ShoppingBag, Star, Eye, CheckCircle2, Sparkles } from 'lucide-react';
 import { useCartStore } from '../../store/useCartStore';
 import { useWishlistStore } from '../../store/useWishlistStore';
@@ -112,7 +110,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </button>
 
           {/* 3D Product Image */}
-          <Link href={`/product/${product.slug}`} className="block w-full h-full">
+          <Link to={`/product/${product.slug}`} className="block w-full h-full">
             <img
               src={mainImage}
               alt={product.name}
@@ -133,7 +131,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               Add to Cart
             </button>
             <Link
-              href={`/product/${product.slug}`}
+              to={`/product/${product.slug}`}
               className="p-3 bg-white border border-slate-200 text-slate-800 hover:text-black rounded-full flex items-center justify-center shadow-sm"
               title="Quick 3D View"
             >
@@ -145,7 +143,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Product Meta Info (SHOP.CO Light Style) */}
         <div className="p-5 space-y-2 flex-1 flex flex-col justify-between bg-white">
           <div className="space-y-1">
-            <Link href={`/product/${product.slug}`}>
+            <Link to={`/product/${product.slug}`}>
               <h3 className="text-base font-black text-black hover:text-slate-600 transition-colors line-clamp-1">
                 {product.name}
               </h3>

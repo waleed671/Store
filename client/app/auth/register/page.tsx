@@ -1,15 +1,12 @@
-'use client';
-
 import React, { useState, Suspense } from 'react';
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Lock, Mail, User, Phone } from 'lucide-react';
 import { useAuthStore } from '../../../store/useAuthStore';
 import api from '../../../lib/api';
 
 function RegisterContent() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const redirectTarget = searchParams.get('redirect') || '/account';
 
   const setAuth = useAuthStore((s) => s.setAuth);
@@ -21,13 +18,7 @@ function RegisterContent() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  React.useEffect(() => {
-    if (redirectTarget) {
-      router.prefetch(redirectTarget);
-      router.prefetch('/checkout');
-      router.prefetch('/account');
-    }
-  }, [redirectTarget, router]);
+
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,11 +35,7 @@ function RegisterContent() {
       const res = await api.post('/auth/register', { name, email, phone, password });
       if (res.data.success) {
         setAuth(res.data.user, res.data.token);
-        if (typeof window !== 'undefined') {
-          window.location.href = redirectTarget;
-        } else {
-          router.push(redirectTarget);
-        }
+        navigate(redirectTarget);
       }
     } catch (err: any) {
       const msg = err.response?.data?.message || 'Registration failed. Email may already be in use.';

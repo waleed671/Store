@@ -1,7 +1,5 @@
-'use client';
-
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import ProductCard from '../product/ProductCard';
 import api from '../../lib/api';
 
@@ -77,7 +75,7 @@ export default function FeaturedCollections() {
         {/* SHOP.CO View All Pill Button */}
         <div className="text-center pt-4">
           <Link
-            href="/shop?sort=newest"
+            to="/shop?sort=newest"
             className="inline-block w-full sm:w-auto px-16 py-4 bg-white border border-slate-200 text-black hover:bg-black hover:text-white font-bold text-sm tracking-wider uppercase rounded-full shadow-sm transition-all text-center"
           >
             View All

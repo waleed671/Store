@@ -1,8 +1,5 @@
-'use client';
-
 import React, { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { 
   Clock, 
   CheckCircle2, 

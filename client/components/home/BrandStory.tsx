@@ -1,7 +1,5 @@
-'use client';
-
 import React from 'react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 export default function BrandStory() {
   const dressStyles = [
@@ -48,7 +46,7 @@ export default function BrandStory() {
             {dressStyles.map((style) => (
               <Link
                 key={style.id}
-                href={`/shop?category=${style.id}`}
+                to={`/shop?category=${style.id}`}
                 className={`${style.colSpan} relative h-[280px] rounded-3xl overflow-hidden bg-white group shadow-sm hover:shadow-xl transition-all duration-500 block p-8`}
               >
                 {/* Style Title */}

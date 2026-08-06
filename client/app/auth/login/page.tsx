@@ -1,15 +1,12 @@
-'use client';
-
 import React, { useState, Suspense } from 'react';
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Lock, Mail, ShieldCheck } from 'lucide-react';
 import { useAuthStore } from '../../../store/useAuthStore';
 import api from '../../../lib/api';
 
 function LoginContent() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const rawRedirectTarget = searchParams.get('redirect') || '/account';
   const msgParam = searchParams.get('msg');
 
@@ -20,11 +17,7 @@ function LoginContent() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  React.useEffect(() => {
-    router.prefetch('/admin/dashboard');
-    router.prefetch('/checkout');
-    router.prefetch('/account');
-  }, [router]);
+
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,11 +40,7 @@ function LoginContent() {
           target = target.includes('/admin') ? '/checkout' : target;
         }
 
-        if (typeof window !== 'undefined') {
-          window.location.href = target;
-        } else {
-          router.push(target);
-        }
+          navigate(target);
       }
     } catch (err: any) {
       const msg = err.response?.data?.message || 'Invalid email or password. Please check your credentials.';

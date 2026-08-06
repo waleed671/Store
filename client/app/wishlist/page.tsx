@@ -1,8 +1,6 @@
-'use client';
-
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { Heart, ShoppingBag, Trash2, Star, ChevronRight } from 'lucide-react';
 import { useWishlistStore } from '../../store/useWishlistStore';
 import { useCartStore } from '../../store/useCartStore';

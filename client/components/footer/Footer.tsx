@@ -1,12 +1,10 @@
-'use client';
-
 import React, { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, useLocation } from 'react-router-dom';
 import { Mail, Globe, Share2, MessageCircle, Send } from 'lucide-react';
 
 export default function Footer() {
-  const pathname = usePathname();
+  const location = useLocation();
+  const pathname = location.pathname;
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -65,7 +63,7 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
             {/* Logo & Info */}
             <div className="md:col-span-2 space-y-4">
-              <Link href="/" className="font-black text-3xl tracking-tighter text-black uppercase block">
+              <Link to="/" className="font-black text-3xl tracking-tighter text-black uppercase block">
                 CHRONEX<span className="text-black">.CO</span>
               </Link>
               <p className="text-slate-600 text-xs max-w-sm leading-relaxed font-normal">
@@ -83,10 +81,10 @@ export default function Footer() {
             <div className="space-y-3">
               <h4 className="font-bold text-xs tracking-widest text-black uppercase">COMPANY</h4>
               <ul className="space-y-2 text-xs text-slate-600 font-medium">
-                <li><Link href="/#story" className="hover:text-black">About</Link></li>
-                <li><Link href="/shop" className="hover:text-black">Features</Link></li>
-                <li><Link href="/shop" className="hover:text-black">Works</Link></li>
-                <li><Link href="/shop" className="hover:text-black">Career</Link></li>
+                <li><Link to="/#story" className="hover:text-black">About</Link></li>
+                <li><Link to="/shop" className="hover:text-black">Features</Link></li>
+                <li><Link to="/shop" className="hover:text-black">Works</Link></li>
+                <li><Link to="/shop" className="hover:text-black">Career</Link></li>
               </ul>
             </div>
 
@@ -94,10 +92,10 @@ export default function Footer() {
             <div className="space-y-3">
               <h4 className="font-bold text-xs tracking-widest text-black uppercase">HELP</h4>
               <ul className="space-y-2 text-xs text-slate-600 font-medium">
-                <li><Link href="/account" className="hover:text-black">Customer Support</Link></li>
-                <li><Link href="/checkout" className="hover:text-black">Delivery Details</Link></li>
-                <li><Link href="/shop" className="hover:text-black">Terms & Conditions</Link></li>
-                <li><Link href="/shop" className="hover:text-black">Privacy Policy</Link></li>
+                <li><Link to="/account" className="hover:text-black">Customer Support</Link></li>
+                <li><Link to="/checkout" className="hover:text-black">Delivery Details</Link></li>
+                <li><Link to="/shop" className="hover:text-black">Terms & Conditions</Link></li>
+                <li><Link to="/shop" className="hover:text-black">Privacy Policy</Link></li>
               </ul>
             </div>
 
@@ -105,10 +103,10 @@ export default function Footer() {
             <div className="space-y-3">
               <h4 className="font-bold text-xs tracking-widest text-black uppercase">FAQ</h4>
               <ul className="space-y-2 text-xs text-slate-600 font-medium">
-                <li><Link href="/account" className="hover:text-black">Account</Link></li>
-                <li><Link href="/account" className="hover:text-black">Manage Deliveries</Link></li>
-                <li><Link href="/account?tab=orders" className="hover:text-black">Orders</Link></li>
-                <li><Link href="/checkout" className="hover:text-black">Payments</Link></li>
+                <li><Link to="/account" className="hover:text-black">Account</Link></li>
+                <li><Link to="/account" className="hover:text-black">Manage Deliveries</Link></li>
+                <li><Link to="/account?tab=orders" className="hover:text-black">Orders</Link></li>
+                <li><Link to="/checkout" className="hover:text-black">Payments</Link></li>
               </ul>
             </div>
           </div>

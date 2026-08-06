@@ -1,17 +1,7 @@
-'use client';
+import React, { useState, Suspense, lazy } from 'react';
+import { Link } from 'react-router-dom';
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-const DynamicWatchCanvas = dynamic(() => import('./Watch3DCanvas'), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-[500px] md:h-[650px] flex items-center justify-center text-cyan-400 text-xs font-bold uppercase tracking-widest animate-pulse">
-      Loading 3D Engine...
-    </div>
-  ),
-});
+const DynamicWatchCanvas = lazy(() => import('./Watch3DCanvas'));
 
 import { 
   Sparkles, 
@@ -121,7 +111,9 @@ export default function Hero3DSection() {
             </div>
 
             {/* 3D Three.js Component */}
-            <DynamicWatchCanvas selectedColor={selectedColor} isExploded={isExploded} />
+            <Suspense fallback={<div className="w-full h-[500px] md:h-[650px] flex items-center justify-center text-cyan-400 text-xs font-bold uppercase tracking-widest animate-pulse">Loading 3D Engine...</div>}>
+              <DynamicWatchCanvas selectedColor={selectedColor} isExploded={isExploded} />
+            </Suspense>
           </div>
 
         </div>
